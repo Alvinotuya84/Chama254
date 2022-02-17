@@ -4,6 +4,9 @@ import { Provider as  PaperProvider} from 'react-native-paper';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
+import { AuthProvider } from './Context/AuthContext';
+import { AxiosProvider } from './Context/AxiosContext';
+
 
 export default function App() {
 
@@ -21,13 +24,19 @@ export default function App() {
     return null;
   } else {
     return (
-      <PaperProvider>
-        <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
-        </SafeAreaProvider>
 
-      </PaperProvider>
+
+      <AuthProvider>
+        <AxiosProvider>
+            <PaperProvider>
+              <SafeAreaProvider>
+                <Navigation colorScheme={colorScheme} />
+                <StatusBar />
+              </SafeAreaProvider>
+            </PaperProvider>
+        </AxiosProvider>
+      </AuthProvider>
+
 
     );
   }

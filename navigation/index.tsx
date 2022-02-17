@@ -22,7 +22,6 @@ import MoreScreen from '../screens/MoreScreen';
 import ModalScreen from '../screens/ProfileScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Dashboard from '../screens/Dashboard';
-import TabTwoScreen from '../screens/TabTwoScreen';
 import MyFines from '../screens/MyFines';
 import MyContributions from '../screens/MyContributions';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -45,6 +44,17 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 
 //endof responsivity
+
+
+//Authentication context imports
+import * as Keychain from 'react-native-keychain';
+
+
+import { AuthContext } from '../Context/AuthContext';
+import { AxiosContext } from '../Context/AxiosContext';
+import Spinner from '../components/Spinner';
+
+//end Authentication context imports
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
@@ -62,42 +72,73 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  return (
-    <Stack.Navigator
+  const authContext = React.useContext(AuthContext);
+  const [status, setStatus] = React.useState('loading');
+  const loadJWT = React.useCallback(async () => {
+    try {
+      const value = await Keychain.getGenericPassword();
+      const jwt = JSON.parse(value.password);
 
-    screenOptions={{
+      authContext.setAuthState({
+        accessToken: jwt.accessToken || null,
+        refreshToken: jwt.refreshToken || null,
+        authenticated: jwt.accessToken !== null,
+      });
+      setStatus('success');
+    } catch (error) {
+      setStatus('error');
+      console.log(`Keychain Error: ${error.message}`);
+      authContext.setAuthState({
+        accessToken: null,
+        refreshToken: null,
+        authenticated: false,
+      });
+    }
+  }, []);
 
-    }}
-    >
+  React.useEffect(() => {
+    loadJWT();
+  }, [loadJWT]);
+
+  if (status === 'loading') {
+    return <Spinner />;
+  }
 
 
 
 
-      <Stack.Screen  name="Root" component={BottomTabNavigator} options={{ headerShown: false,     
- }} />
+  if(authContext?.authState?.authenticated === false){
+    return(
+      <Stack.Navigator>
+<Stack.Screen  name='LoginScreen' component={LoginScreen} options={{headerShown:false}}/>
+<Stack.Screen name='ForgotPassword' component={ForgotPassword} options={{headerShown:false}}/>
+</Stack.Navigator>
+
+
+
+    );
+  }
+  else{
+
+    return(
+
+      <Stack.Navigator>
+      <Stack.Screen  name="Root" component={BottomTabNavigator} options={{ headerShown: false, }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
 
         {
         screens.map((item,id)=>(
-          <Stack.Screen key={id} name={item.name} component={item.screencomponent}      
-    />
+          <Stack.Screen key={id} name={item.name} component={item.screencomponent}/>
         ))
       }
-      <Stack.Screen name='LoginScreen' component={LoginScreen} options={
-        {
-          headerShown:false
-        }
-      }/>
-            <Stack.Screen name='ForgotPassword' component={ForgotPassword} options={
-        {
-          headerShown:false
-        }
-      }/>
-      </Stack.Group>
+
     </Stack.Navigator>
-  );
+    );
+
+
+  }
+
 }
 
 /**

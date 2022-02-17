@@ -2,26 +2,26 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import React,{useContext} from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { scale } from 'react-native-size-matters';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { screens } from '../routenavigations';
+//Authentication context import
+import { AuthContext } from '../Context/AuthContext';
+//end of authentication context import
 //component imports
-import LoginScreen from './LoginScreen';
 
 //end of component imports
 
 const MoreScreen = () => {
-  const TopTab=createMaterialTopTabNavigator();
   const navigation=useNavigation();
+  const authContext = useContext(AuthContext);
+
 
 
   return (
       <ScrollView style={styles.main}>
 
-            <TouchableOpacity onPress={()=>{
-            navigation.navigate("LoginScreen");
-          }} style={styles.signOut}>
+            <TouchableOpacity onPress={() => authContext.logout()} style={styles.signOut}>
               <Text style={styles.signOutText}>Sign Out</Text>
             </TouchableOpacity>
           <View style={styles.navigationContainer}>

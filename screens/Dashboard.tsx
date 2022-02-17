@@ -4,7 +4,7 @@ import { scale } from 'react-native-size-matters';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import Colors from '../constants/Colors';
-//component impors
+//component imports
 import MyNetAmount from '../components/dashboard/MynetAmount';
 import QuickSummary from '../components/dashboard/QuickSummary';
 import GenerateStatement from '../components/dashboard/GenerateStatement';

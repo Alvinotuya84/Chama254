@@ -1,11 +1,34 @@
 import { View, Text } from 'react-native'
-import React from 'react'
-import { DataTable } from 'react-native-paper'
-
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, DataTable } from 'react-native-paper'
+import { mainStyles } from '../../../constants/Styles'
 //utility imporst
 import { styles } from './style'
+import Colors from '../../../constants/Colors'
 //end of utililty impors
 const QuickSummary = () => {
+  const [isLoading, setisLoading] = useState(true);
+  const [tableData, setTableData] = useState([]);
+  const getData=async()=>{
+    try {
+      const response=await fetch("https://reactnative.dev/movies.json");
+      const jsonResult=await response.json();
+      setTableData(jsonResult.movies)
+
+      
+    } catch (error) {
+      console.log(error)
+      
+    }finally{
+      setisLoading(false)
+    }
+
+  }
+  useEffect(()=>{
+    getData();
+
+
+  },[])
   return (
     <DataTable>
       <DataTable.Header style={styles.tableHeader}>
@@ -16,13 +39,23 @@ const QuickSummary = () => {
         
 
       </DataTable.Header>
+      {
+        isLoading?<ActivityIndicator
+        size="large"  
+        color={Colors.light.background}        
 
-      <DataTable.Row>
-        <DataTable.Cell>ABSENT</DataTable.Cell>
-        <DataTable.Cell numeric>2.00</DataTable.Cell>
-        <DataTable.Cell numeric>1.00</DataTable.Cell>
-        <DataTable.Cell numeric>1.00</DataTable.Cell>
-      </DataTable.Row>
+        style={mainStyles.activityIndicator}
+        />:tableData.map((item,id)=>(   
+
+        <DataTable.Row key={id}>
+          <DataTable.Cell>{item.title}</DataTable.Cell>
+          <DataTable.Cell numeric>2.00</DataTable.Cell>
+          <DataTable.Cell numeric>1.00</DataTable.Cell>
+          <DataTable.Cell numeric>1.00</DataTable.Cell>
+        </DataTable.Row>))
+      }
+
+
     </DataTable>
 
   )
