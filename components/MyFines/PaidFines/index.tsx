@@ -55,15 +55,15 @@ const MyFines = () => {
       </DataTable.Header>
 
       <DataTable.Row>
-        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >1000</Text></DataTable.Cell>
-        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >1000</Text></DataTable.Cell>
-        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >1000</Text></DataTable.Cell>
-        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >1000</Text></DataTable.Cell>
-        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >1000</Text></DataTable.Cell>
-        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >1000</Text></DataTable.Cell>
-        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >1000</Text></DataTable.Cell>
-        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >1000</Text></DataTable.Cell>
-        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >1000</Text></DataTable.Cell>
+        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >asdfsfga</Text></DataTable.Cell>
+        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >asdfsfga</Text></DataTable.Cell>
+        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >asdfsfga</Text></DataTable.Cell>
+        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >asdfsfga</Text></DataTable.Cell>
+        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >asdfsfga</Text></DataTable.Cell>
+        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >asdfsfga</Text></DataTable.Cell>
+        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >asdfsfga</Text></DataTable.Cell>
+        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >asdfsfga</Text></DataTable.Cell>
+        <DataTable.Cell style={styles.dataTextHolder}><Text style={styles.dataText} >asdfsfgavj</Text></DataTable.Cell>
 
 
 

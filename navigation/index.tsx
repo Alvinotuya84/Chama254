@@ -48,7 +48,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 //Authentication context imports
 import * as Keychain from 'react-native-keychain';
-
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 import { AuthContext } from '../Context/AuthContext';
 import { AxiosContext } from '../Context/AxiosContext';
@@ -76,7 +76,7 @@ function RootNavigator() {
   const [status, setStatus] = React.useState('loading');
   const loadJWT = React.useCallback(async () => {
     try {
-      const value = await Keychain.getGenericPassword();
+      const value = await AsyncStorage.getItem('token');
       const jwt = JSON.parse(value.password);
 
       authContext.setAuthState({

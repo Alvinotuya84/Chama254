@@ -20,6 +20,7 @@ import  AsyncStorage  from "@react-native-async-storage/async-storage";
 import Colors from "../constants/Colors";
  
 export default function LoginScreen() {
+  const [error, setError] = useState('')
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -38,7 +39,8 @@ export default function LoginScreen() {
         password,
       });
 
-      const accessToken = response.data.token;
+      const accessToken = response.data;
+      console.log(accessToken);
 
       authContext.setAuthState({
         accessToken,
@@ -53,15 +55,14 @@ export default function LoginScreen() {
       );
     } catch (error) {
       if (error.response) {
-        // There is an error response from the server
-        // You can anticipate error.response.data here
+ 
+        setError(error.response.data.error)
+
         console.log(error.response.data)
     } else if (error.request) {
-        // The request was made but no response was received
-        // Error details are stored in error.reqeust
+
         console.log(error.request);
     } else {
-        // Some other errors
         console.log( error.message);
     }
 
@@ -108,7 +109,11 @@ export default function LoginScreen() {
       onPress={()=>{
         navigation.navigate("ForgotPassword");
     }}>
-        <Text style={styles.forgot_button}>Forgot Password?click here</Text>
+              <Text style={styles.forgot_button}>Forgot Password?click here</Text>
+        {error? ( <Text style={styles.error}>error!!:{error}</Text>):
+        (<View style={{height:0,
+        width:0}}></View>)
+}
       </TouchableOpacity>
  
       <TouchableOpacity
@@ -154,7 +159,7 @@ const styles = StyleSheet.create({
     height: scale(30),
     marginBottom: scale(30),
     fontWeight:'bold',
-    color:Colors.light.background
+    color:'black'
   },
   loginBtn: {
     width: "70%",
@@ -170,5 +175,13 @@ const styles = StyleSheet.create({
       fontWeight:'bold'
 
   },
+  error:{
+    height: scale(30),
+    marginBottom: scale(30),
+    fontWeight:'bold',
+    color:Colors.light.background
+
+
+  }
 
 });

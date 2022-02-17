@@ -50,6 +50,9 @@ const OutStandingPayments = () => {
 
 export default OutStandingPayments
 
+
+
+
 const styles = StyleSheet.create({
 
   container:{
